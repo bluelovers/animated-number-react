@@ -38,7 +38,7 @@ const Template: ComponentStory<typeof AnimatedNumber> = (args) => {
     <button
       onClick={() =>
       {
-        setValue(value + 500 );
+        setValue(value + 12345 );
       }}
     >
       Increase 500
@@ -46,7 +46,7 @@ const Template: ComponentStory<typeof AnimatedNumber> = (args) => {
     <button
       onClick={() =>
       {
-        setValue(value - 500);
+        setValue(() => value - 12345);
       }}
     >
       Decrease 500

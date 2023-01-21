@@ -1344,6 +1344,16 @@
     "@jridgewell/resolve-uri" "3.1.0"
     "@jridgewell/sourcemap-codec" "1.4.14"
 
+"@lazy-assert/check-basic@^1.0.12":
+  version "1.0.12"
+  resolved "https://registry.npmjs.org/@lazy-assert/check-basic/-/check-basic-1.0.12.tgz#a053a4e3c06fc586b518467a9bda5272260dc4a4"
+  integrity sha512-Zttg9K7CBNcNlGDM+AQ9rqschYJ0c8tvJ/35iBuiqefZ9RuaW9C1Ww0AGgp9MVLL/h1/uBbY6CDuz+VRzCDDAg==
+
+"@lazy-num/to-fixed-number@^1.0.9":
+  version "1.0.9"
+  resolved "https://registry.npmjs.org/@lazy-num/to-fixed-number/-/to-fixed-number-1.0.9.tgz#565e8228e4394a7203ecfa7ae42cdd6b8d5285e5"
+  integrity sha512-NkMUxAuPL6PBW2N215BdDJvqg/8QKThZuC/hrKcu8xe8pVmClIMktFwQfmJ/r/febXqEdFKPgoZYAE+jEzyl9g==
+
 "@lazy-storybook/arg-types-util@^1.0.1":
   version "1.0.1"
   resolved "https://registry.npmjs.org/@lazy-storybook/arg-types-util/-/arg-types-util-1.0.1.tgz#d0b67e2ba431738057f2d15dc9a0da972ca7d983"
