@@ -1,12 +1,13 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import AnimatedNumber from './Animated-Number';
+import { AnimatedNumber } from '../../index';
 
 describe('AnimatedNumber', () => {
   const durationOfAnimation = 1000;
   const value = 1500;
 
   it('renders props.value when passed', (done) => {
+    // @ts-ignore
     const wrapper = shallow(<AnimatedNumber value={value} />);
 
     setTimeout(() => {
@@ -18,6 +19,7 @@ describe('AnimatedNumber', () => {
 
   it('renders the correct value when the duration is equal 100', (done) => {
     const duration = 100;
+    // @ts-ignore
     const wrapper = shallow(<AnimatedNumber value={value} duration={duration} />);
     setTimeout(() => {
       wrapper.update();
@@ -29,6 +31,7 @@ describe('AnimatedNumber', () => {
   it('respect the time of the delay', (done) => {
     const delay = 50;
     const duration = 10;
+    // @ts-ignore
     const wrapper = shallow(<AnimatedNumber value={value} duration={duration} delay={delay} />);
 
     setTimeout(() => {
@@ -45,14 +48,18 @@ describe('AnimatedNumber', () => {
 
   it('should return a "test" when formatValue function is called', () => {
     const formatValue = () => 'test';
+    // @ts-ignore
     const wrapper = shallow(<AnimatedNumber value={value} formatValue={formatValue} />);
     wrapper.update();
+    // @ts-ignore
     const formatedValue = wrapper.instance().props.formatValue(value);
     expect(formatedValue).toBe('test');
   });
 
   it('renders $ 10.00  when a format function is passsed', (done) => {
+    // @ts-ignore
     const formatValue = value_ => `$ ${value_.toFixed(2)}`;
+    // @ts-ignore
     const wrapper = shallow(<AnimatedNumber value={value} formatValue={formatValue} />);
     setTimeout(() => {
       wrapper.update();
@@ -62,7 +69,9 @@ describe('AnimatedNumber', () => {
   });
 
   it('should call the animateValue when props.value change ', () => {
+    // @ts-ignore
     const wrapper = shallow(<AnimatedNumber value={value} />);
+    // @ts-ignore
     const spy = jest.spyOn(wrapper.instance(), 'animateValue');
     wrapper.setProps({ value: 123 });
     wrapper.update();
@@ -72,6 +81,7 @@ describe('AnimatedNumber', () => {
   it('should call the props.begin before animation start', (done) => {
     let isNotStarted = false;
 
+    // @ts-ignore
     shallow(<AnimatedNumber
       value={value}
       begin={(anim) => {
@@ -88,6 +98,7 @@ describe('AnimatedNumber', () => {
   it('should call the props.complete when the animation is completed', (done) => {
     let isAnimationCompleted = false;
 
+    // @ts-ignore
     shallow(<AnimatedNumber
       value={value}
       complete={(anim) => {
@@ -104,6 +115,7 @@ describe('AnimatedNumber', () => {
   it('should call the props.update multiple times when the animation is playing', (done) => {
     let counter = 0;
 
+    // @ts-ignore
     shallow(<AnimatedNumber
       value={value}
       update={() => {
@@ -119,6 +131,7 @@ describe('AnimatedNumber', () => {
 
   it('should call the props.run multiple times when the animation is playing after delay is finished', (done) => {
     let counter = 0;
+    // @ts-ignore
     shallow(<AnimatedNumber
       value={value}
       delay={50}
