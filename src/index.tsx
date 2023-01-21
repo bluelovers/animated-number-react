@@ -1,8 +1,10 @@
 import { Component, createElement } from 'react';
-import { func, number, oneOfType, string } from 'prop-types';
+import { func, number, oneOfType, string, bool } from 'prop-types';
 import anime, { AnimeAnimParams, AnimeInstance } from 'animejs';
 import { ITSOmitIndexSignatures } from 'ts-type/lib/helper/record/omit-index';
 import { ITSTypeAndStringLiteral } from 'ts-type/lib/helper/string';
+import { isInt } from '@lazy-assert/check-basic';
+import toFixedNumber from '@lazy-num/to-fixed-number';
 
 export const enum EnumEasingOptions
 {
@@ -47,6 +49,7 @@ export interface IAnimatedNumberProps extends Omit<ITSOmitIndexSignatures<AnimeA
 {
 	value: number,
 	startValue?: number,
+	startFromPreviousValue?: boolean,
 
 	className?: string,
 
@@ -103,6 +106,7 @@ export class AnimatedNumber extends Component<IAnimatedNumberProps, IAnimatedNum
 		duration: number,
 		delay: number,
 		formatValue: func,
+		startFromPreviousValue: bool,
 		begin: func,
 		complete: func,
 		run: func,
@@ -111,9 +115,9 @@ export class AnimatedNumber extends Component<IAnimatedNumberProps, IAnimatedNum
 		className: string,
 	};
 
-	static defaultProps = {
+	static defaultProps: Partial<IAnimatedNumberProps> = {
 		//duration: 1000,
-		formatValue: (value: number) => value,
+		//formatValue: (value: number) => value,
 		//easing: EnumEasingOptions.easeInOutQuint,
 		//run: defaultFunction,
 		//complete: defaultFunction,
@@ -138,7 +142,7 @@ export class AnimatedNumber extends Component<IAnimatedNumberProps, IAnimatedNum
 
 	override componentDidUpdate = (prevProps: IAnimatedNumberProps) =>
 	{
-		if (prevProps.value !== this.props.value) this.animateValue();
+		if (prevProps.value !== this.props.value) this.animateValue(prevProps.value);
 	}
 
 	override componentWillUnmount = () =>
@@ -163,7 +167,12 @@ export class AnimatedNumber extends Component<IAnimatedNumberProps, IAnimatedNum
 		delete this.instance;
 	};
 
-	animateValue = () =>
+	pauseAnimation = () =>
+	{
+		this.instance?.pause();
+	}
+
+	animateValue = (oldValue?: number) =>
 	{
 		this.stopAnimation();
 
@@ -183,16 +192,30 @@ export class AnimatedNumber extends Component<IAnimatedNumberProps, IAnimatedNum
 			startValue,
 			slow,
 			fast,
+			fractionDigits,
+			startFromPreviousValue,
 			...props
 		} = this.props;
 
 		duration ??= slow ? 2500 : fast ? 1000 : 1750;
 		easing ??= EnumEasingOptions.easeInOutQuint;
 
+		let animatedValue = [value];
+
+		if (startFromPreviousValue === true)
+		{
+			//console.log(`animatedValue`, this.target.animatedValue, this.state.animatedValue, oldValue)
+			animatedValue.unshift(this.state.animatedValue ?? oldValue ?? startValue ?? 0)
+		}
+		else
+		{
+			animatedValue.unshift(startValue ?? 0)
+		}
+
 		this.instance = anime({
 			...props,
 			targets: this.target,
-			animatedValue: [startValue || 0, value],
+			animatedValue,
 			duration,
 			update: this.updateValue,
 			easing,
@@ -205,9 +228,31 @@ export class AnimatedNumber extends Component<IAnimatedNumberProps, IAnimatedNum
 
 	override render()
 	{
+		let { formatValue, fractionDigits, locale } = this.props;
+		fractionDigits ??= isInt(this.props.value) ? 0 : 3;
+
+		if (formatValue)
+		{
+			formatValue = (current) => this.props.formatValue(toFixedNumber(current, fractionDigits), this.props.value, this.props)
+		}
+		else
+		{
+			formatValue = (current: number) =>
+			{
+				let result = toFixedNumber(current, fractionDigits);
+
+				if ((locale ?? true) && result)
+				{
+					result = result.toLocaleString() as any
+				}
+
+				return result
+			}
+		}
+
 		return createElement('span', {
 			className: this.props.className,
-		}, this.props.formatValue(this.state.animatedValue, this.props.value, this.props))
+		}, formatValue(this.state.animatedValue, this.props.value, this.props))
 	}
 }
 
