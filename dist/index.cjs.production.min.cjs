@@ -1,6 +1,6 @@
 "use strict";
 
-var e, t = require("react"), a = require("prop-types"), n = require("animejs");
+var e, t = require("react"), a = require("prop-types"), n = require("animejs"), i = require("@lazy-assert/check-basic"), u = require("@lazy-num/to-fixed-number");
 
 function _defineProperty(e, t, a) {
   return (t = function _toPropertyKey(e) {
@@ -43,46 +43,52 @@ class AnimatedNumber extends t.Component {
       animatedValue: 0
     }), _defineProperty(this, "target", {
       animatedValue: 0
-    });
-  }
-  componentDidMount() {
-    this.animateValue();
-  }
-  componentDidUpdate(e) {
-    e.value !== this.props.value && this.animateValue();
-  }
-  componentWillUnmount() {
-    this.stopAnimation();
-  }
-  updateValue(e) {
-    var t, a;
-    null === (t = (a = this.props).update) || void 0 === t || t.call(a, e);
-    const {animatedValue: n} = this.target;
-    this.setState({
-      animatedValue: n
-    });
-  }
-  stopAnimation() {
-    this.instance && (this.instance.pause(), this.instance.reset(), delete this.instance);
-  }
-  animateValue() {
-    var e, t;
-    if (this.stopAnimation(), "undefined" == typeof window) return;
-    let {duration: a, easing: u, value: i, startValue: s, slow: r, fast: o, ...c} = this.props;
-    null !== (e = a) && void 0 !== e || (a = r ? 2500 : o ? 1000 : 1750), null !== (t = u) && void 0 !== t || (u = "easeInOutQuint"), 
-    this.instance = n({
-      ...c,
-      targets: this.target,
-      animatedValue: [ s || 0, i ],
-      duration: a,
-      update: this.updateValue,
-      easing: u
-    });
+    }), _defineProperty(this, "componentDidMount", (() => {
+      this.animateValue();
+    })), _defineProperty(this, "componentDidUpdate", (e => {
+      e.value !== this.props.value && this.animateValue(e.value);
+    })), _defineProperty(this, "componentWillUnmount", (() => {
+      this.stopAnimation();
+    })), _defineProperty(this, "updateValue", (e => {
+      var t, a;
+      null === (t = (a = this.props).update) || void 0 === t || t.call(a, e);
+      const {animatedValue: n} = this.target;
+      this.setState({
+        animatedValue: n
+      });
+    })), _defineProperty(this, "stopAnimation", (() => {
+      this.instance && (this.instance.pause(), this.instance.reset(), delete this.instance);
+    })), _defineProperty(this, "pauseAnimation", (() => {
+      var e;
+      null === (e = this.instance) || void 0 === e || e.pause();
+    })), _defineProperty(this, "animateValue", (e => {
+      var t, a;
+      if (this.stopAnimation(), "undefined" == typeof window) return;
+      let {duration: i, easing: u, value: s, startValue: r, slow: o, fast: l, fractionDigits: p, startFromPreviousValue: c, ...d} = this.props;
+      null !== (t = i) && void 0 !== t || (i = o ? 2500 : l ? 1000 : 1750), null !== (a = u) && void 0 !== a || (u = "easeInOutQuint");
+      let m = [ s ];
+      var f, O, I;
+      m.unshift(!0 === c ? null !== (f = null !== (O = null !== (I = this.state.animatedValue) && void 0 !== I ? I : e) && void 0 !== O ? O : r) && void 0 !== f ? f : 0 : null != r ? r : 0), 
+      this.instance = n({
+        ...d,
+        targets: this.target,
+        animatedValue: m,
+        duration: i,
+        update: this.updateValue,
+        easing: u
+      });
+    }));
   }
   render() {
-    return t.createElement("span", {
+    var e;
+    let {formatValue: a, fractionDigits: n, locale: s} = this.props;
+    return null !== (e = n) && void 0 !== e || (n = i.isInt(this.props.value) ? 0 : 3), 
+    a = a ? e => this.props.formatValue(u(e, n), this.props.value, this.props) : e => {
+      let t = u(e, n);
+      return (null == s || s) && t && (t = t.toLocaleString()), t;
+    }, t.createElement("span", {
       className: this.props.className
-    }, this.props.formatValue(this.state.animatedValue, this.props.value, this.props));
+    }, a(this.state.animatedValue, this.props.value, this.props));
   }
 }
 
@@ -91,15 +97,14 @@ _defineProperty(AnimatedNumber, "propTypes", {
   duration: a.number,
   delay: a.number,
   formatValue: a.func,
+  startFromPreviousValue: a.bool,
   begin: a.func,
   complete: a.func,
   run: a.func,
   update: a.func,
   easing: a.string,
   className: a.string
-}), _defineProperty(AnimatedNumber, "defaultProps", {
-  formatValue: e => e
-}), Object.defineProperty(AnimatedNumber, "__esModule", {
+}), _defineProperty(AnimatedNumber, "defaultProps", {}), Object.defineProperty(AnimatedNumber, "__esModule", {
   value: !0
 }), Object.defineProperty(AnimatedNumber, "AnimatedNumber", {
   value: AnimatedNumber

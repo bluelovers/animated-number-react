@@ -3,6 +3,27 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.1.5](https://github.com/bluelovers/animated-number-react/compare/animated-number-react2@0.1.4...animated-number-react2@0.1.5) (2023-01-21)
+
+
+
+### 🐛　Bug Fixes
+
+* undefined ([bd86e86](https://github.com/bluelovers/animated-number-react/commit/bd86e8678f1199b33d3b43815fd50c0b70044029))
+
+
+### ✨　Features
+
+* add `startFromPreviousValue` ([efadeab](https://github.com/bluelovers/animated-number-react/commit/efadeabdf26a8f66295667518352105a2326ee02))
+
+
+### 🔖　Miscellaneous
+
+* . ([9cb2ac2](https://github.com/bluelovers/animated-number-react/commit/9cb2ac2c6e71c7b26e386cb4a7d121a31fbac2c1))
+* . ([c7e65ce](https://github.com/bluelovers/animated-number-react/commit/c7e65ce557a13ba4ca58c3ae9ba4dfdeed936958))
+
+
+
 ## 0.1.4 (2023-01-21)
 
 

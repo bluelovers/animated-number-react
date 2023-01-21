@@ -1,5 +1,4 @@
 import { AnimeAnimParams, AnimeInstance } from 'animejs';
-import { Requireable, Validator } from 'prop-types';
 import { Component } from 'react';
 import { ITSOmitIndexSignatures } from 'ts-type/lib/helper/record/omit-index';
 import { ITSTypeAndStringLiteral } from 'ts-type/lib/helper/string';
@@ -44,6 +43,7 @@ export declare const enum EnumEasingOptions {
 export interface IAnimatedNumberProps extends Omit<ITSOmitIndexSignatures<AnimeAnimParams>, "targets" | "animatedValue" | "update">, Record<"targets" | "animatedValue" | "innerHTML", never> {
 	value: number;
 	startValue?: number;
+	startFromPreviousValue?: boolean;
 	className?: string;
 	fractionDigits?: number;
 	locale?: boolean;
@@ -83,20 +83,19 @@ export interface IAnimatedNumberState {
 }
 export declare class AnimatedNumber extends Component<IAnimatedNumberProps, IAnimatedNumberState> {
 	static propTypes: {
-		value: Validator<NonNullable<NonNullable<string | number>>>;
-		duration: Requireable<number>;
-		delay: Requireable<number>;
-		formatValue: Requireable<(...args: any[]) => any>;
-		begin: Requireable<(...args: any[]) => any>;
-		complete: Requireable<(...args: any[]) => any>;
-		run: Requireable<(...args: any[]) => any>;
-		update: Requireable<(...args: any[]) => any>;
-		easing: Requireable<string>;
-		className: Requireable<string>;
+		value: import("prop-types").Validator<NonNullable<NonNullable<string | number>>>;
+		duration: import("prop-types").Requireable<number>;
+		delay: import("prop-types").Requireable<number>;
+		formatValue: import("prop-types").Requireable<(...args: any[]) => any>;
+		startFromPreviousValue: import("prop-types").Requireable<boolean>;
+		begin: import("prop-types").Requireable<(...args: any[]) => any>;
+		complete: import("prop-types").Requireable<(...args: any[]) => any>;
+		run: import("prop-types").Requireable<(...args: any[]) => any>;
+		update: import("prop-types").Requireable<(...args: any[]) => any>;
+		easing: import("prop-types").Requireable<string>;
+		className: import("prop-types").Requireable<string>;
 	};
-	static defaultProps: {
-		formatValue: (value: number) => number;
-	};
+	static defaultProps: Partial<IAnimatedNumberProps>;
 	state: {
 		animatedValue: number;
 	};
@@ -104,12 +103,13 @@ export declare class AnimatedNumber extends Component<IAnimatedNumberProps, IAni
 		animatedValue: number;
 	};
 	protected instance: AnimeInstance;
-	componentDidMount(): void;
-	componentDidUpdate(prevProps: IAnimatedNumberProps): void;
-	componentWillUnmount(): void;
-	updateValue(anima: AnimeInstance): void;
-	stopAnimation(): void;
-	animateValue(): void;
+	componentDidMount: () => void;
+	componentDidUpdate: (prevProps: IAnimatedNumberProps) => void;
+	componentWillUnmount: () => void;
+	updateValue: (anima: AnimeInstance) => void;
+	stopAnimation: () => void;
+	pauseAnimation: () => void;
+	animateValue: (oldValue?: number) => void;
 	render(): import("react").DetailedReactHTMLElement<{
 		className: string;
 	}, HTMLElement>;
