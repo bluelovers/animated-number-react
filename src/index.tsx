@@ -1,5 +1,5 @@
 import { Component, createElement } from 'react';
-import { Requireable, number, func, string, oneOfType, Validator } from 'prop-types';
+import { func, number, oneOfType, string } from 'prop-types';
 import anime, { AnimeAnimParams, AnimeInstance } from 'animejs';
 import { ITSOmitIndexSignatures } from 'ts-type/lib/helper/record/omit-index';
 import { ITSTypeAndStringLiteral } from 'ts-type/lib/helper/string';
@@ -131,39 +131,39 @@ export class AnimatedNumber extends Component<IAnimatedNumberProps, IAnimatedNum
 	};
 	protected instance: AnimeInstance;
 
-	override componentDidMount()
+	override componentDidMount = () =>
 	{
 		this.animateValue();
 	}
 
-	override componentDidUpdate(prevProps: IAnimatedNumberProps)
+	override componentDidUpdate = (prevProps: IAnimatedNumberProps) =>
 	{
 		if (prevProps.value !== this.props.value) this.animateValue();
 	}
 
-	override componentWillUnmount()
+	override componentWillUnmount = () =>
 	{
 		this.stopAnimation();
 	}
 
-	updateValue(anima: AnimeInstance)
+	updateValue = (anima: AnimeInstance) =>
 	{
 		this.props.update?.(anima);
 		const { animatedValue } = this.target;
 		this.setState({ animatedValue });
 	}
 
-	stopAnimation()
+	stopAnimation = () =>
 	{
 		if (!this.instance) return;
 
 		this.instance.pause();
-    // @ts-ignore
+		// @ts-ignore
 		this.instance.reset();
 		delete this.instance;
 	};
 
-	animateValue()
+	animateValue = () =>
 	{
 		this.stopAnimation();
 
