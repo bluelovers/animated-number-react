@@ -82,7 +82,7 @@ class AnimatedNumber extends react.Component {
       this.animateValue();
     });
     _defineProperty(this, "componentDidUpdate", prevProps => {
-      if (prevProps.value !== this.props.value) this.animateValue(prevProps.value);
+      if (prevProps.value !== this.props.value || !this.instance) this.animateValue(prevProps.value);
     });
     _defineProperty(this, "componentWillUnmount", () => {
       this.stopAnimation();

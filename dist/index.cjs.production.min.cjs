@@ -46,7 +46,7 @@ class AnimatedNumber extends t.Component {
     }), _defineProperty(this, "componentDidMount", (() => {
       this.animateValue();
     })), _defineProperty(this, "componentDidUpdate", (e => {
-      e.value !== this.props.value && this.animateValue(e.value);
+      e.value === this.props.value && this.instance || this.animateValue(e.value);
     })), _defineProperty(this, "componentWillUnmount", (() => {
       this.stopAnimation();
     })), _defineProperty(this, "updateValue", (e => {
