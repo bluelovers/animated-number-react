@@ -142,7 +142,7 @@ export class AnimatedNumber extends Component<IAnimatedNumberProps, IAnimatedNum
 
 	override componentDidUpdate = (prevProps: IAnimatedNumberProps) =>
 	{
-		if (prevProps.value !== this.props.value) this.animateValue(prevProps.value);
+		if (prevProps.value !== this.props.value || !this.instance) this.animateValue(prevProps.value);
 	}
 
 	override componentWillUnmount = () =>
