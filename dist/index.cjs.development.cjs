@@ -69,6 +69,30 @@ var EnumEasingOptions;
   EnumEasingOptions["easeInOutElastic"] = "easeInOutElastic";
   EnumEasingOptions["easeInOutBounce"] = "easeInOutBounce";
 })(EnumEasingOptions || (EnumEasingOptions = {}));
+function createFixedNumberFn(props) {
+  var _fractionDigits;
+  let {
+    fractionDigits
+  } = props;
+  (_fractionDigits = fractionDigits) !== null && _fractionDigits !== void 0 ? _fractionDigits : fractionDigits = checkBasic.isInt(props.value) ? 0 : 3;
+  return current => toFixedNumber(current, fractionDigits);
+}
+function createFormatValueFn(props) {
+  const toFixedNumber = createFixedNumberFn(props);
+  let formatValue;
+  if (props.formatValue) {
+    formatValue = (current, initialValue, props) => props.formatValue(toFixedNumber(current), initialValue, props);
+  } else {
+    formatValue = (current, initialValue, props) => {
+      let result = toFixedNumber(current);
+      if (result && props.locale) {
+        result = result.toLocaleString();
+      }
+      return result;
+    };
+  }
+  return formatValue;
+}
 class AnimatedNumber extends react.Component {
   constructor() {
     super(...arguments);
@@ -108,7 +132,7 @@ class AnimatedNumber extends react.Component {
       (_this$instance = this.instance) === null || _this$instance === void 0 ? void 0 : _this$instance.pause();
     });
     _defineProperty(this, "animateValue", oldValue => {
-      var _duration, _easing;
+      var _duration, _easing, _ref, _this$state$animatedV;
       this.stopAnimation();
       if (typeof window === 'undefined') {
         return;
@@ -126,13 +150,8 @@ class AnimatedNumber extends react.Component {
       } = this.props;
       (_duration = duration) !== null && _duration !== void 0 ? _duration : duration = slow ? 2500 : fast ? 1000 : 1750;
       (_easing = easing) !== null && _easing !== void 0 ? _easing : easing = "easeInOutQuint";
-      let animatedValue = [value];
-      if (startFromPreviousValue === true) {
-        var _ref, _ref2, _this$state$animatedV;
-        animatedValue.unshift((_ref = (_ref2 = (_this$state$animatedV = this.state.animatedValue) !== null && _this$state$animatedV !== void 0 ? _this$state$animatedV : oldValue) !== null && _ref2 !== void 0 ? _ref2 : startValue) !== null && _ref !== void 0 ? _ref : 0);
-      } else {
-        animatedValue.unshift(startValue !== null && startValue !== void 0 ? startValue : 0);
-      }
+      let n = startFromPreviousValue === true ? (_ref = (_this$state$animatedV = this.state.animatedValue) !== null && _this$state$animatedV !== void 0 ? _this$state$animatedV : oldValue) !== null && _ref !== void 0 ? _ref : startValue : startValue;
+      let animatedValue = [n !== null && n !== void 0 ? n : 0, value];
       this.instance = anime({
         ...props,
         targets: this.target,
@@ -142,29 +161,12 @@ class AnimatedNumber extends react.Component {
         easing
       });
     });
-  }
-  render() {
-    var _fractionDigits;
-    let {
-      formatValue,
-      fractionDigits,
-      locale
-    } = this.props;
-    (_fractionDigits = fractionDigits) !== null && _fractionDigits !== void 0 ? _fractionDigits : fractionDigits = checkBasic.isInt(this.props.value) ? 0 : 3;
-    if (formatValue) {
-      formatValue = current => this.props.formatValue(toFixedNumber(current, fractionDigits), this.props.value, this.props);
-    } else {
-      formatValue = current => {
-        let result = toFixedNumber(current, fractionDigits);
-        if ((locale !== null && locale !== void 0 ? locale : true) && result) {
-          result = result.toLocaleString();
-        }
-        return result;
-      };
-    }
-    return react.createElement('span', {
-      className: this.props.className
-    }, formatValue(this.state.animatedValue, this.props.value, this.props));
+    _defineProperty(this, "render", () => {
+      const formatValue = createFormatValueFn(this.props);
+      return react.createElement('span', {
+        className: this.props.className
+      }, formatValue(this.state.animatedValue, this.props.value, this.props));
+    });
   }
 }
 _defineProperty(AnimatedNumber, "propTypes", {

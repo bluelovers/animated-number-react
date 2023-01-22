@@ -81,6 +81,8 @@ export interface IAnimatedNumberProps extends Omit<ITSOmitIndexSignatures<AnimeA
 export interface IAnimatedNumberState {
 	animatedValue: number;
 }
+export declare function createFixedNumberFn(props: Pick<IAnimatedNumberProps, "fractionDigits" | "value">): (current: number) => number;
+export declare function createFormatValueFn(props: Pick<IAnimatedNumberProps, "fractionDigits" | "value" | "formatValue">): (current: number, initialValue: number, props: IAnimatedNumberProps) => string | number;
 export declare class AnimatedNumber extends Component<IAnimatedNumberProps, IAnimatedNumberState> {
 	static propTypes: {
 		value: import("prop-types").Validator<NonNullable<NonNullable<string | number>>>;
@@ -110,7 +112,7 @@ export declare class AnimatedNumber extends Component<IAnimatedNumberProps, IAni
 	stopAnimation: () => void;
 	pauseAnimation: () => void;
 	animateValue: (oldValue?: number) => void;
-	render(): import("react").DetailedReactHTMLElement<{
+	render: () => import("react").DetailedReactHTMLElement<{
 		className: string;
 	}, HTMLElement>;
 }

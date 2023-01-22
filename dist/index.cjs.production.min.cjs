@@ -23,6 +23,12 @@ function _defineProperty(e, t, a) {
   }) : e[t] = a, e;
 }
 
+function createFixedNumberFn(e) {
+  var t;
+  let {fractionDigits: a} = e;
+  return null !== (t = a) && void 0 !== t || (a = i.isInt(e.value) ? 0 : 3), e => u(e, a);
+}
+
 !function(e) {
   e.linear = "linear", e.easeInQuad = "easeInQuad", e.easeInCubic = "easeInCubic", 
   e.easeInQuart = "easeInQuart", e.easeInQuint = "easeInQuint", e.easeInSine = "easeInSine", 
@@ -62,33 +68,32 @@ class AnimatedNumber extends t.Component {
       var e;
       null === (e = this.instance) || void 0 === e || e.pause();
     })), _defineProperty(this, "animateValue", (e => {
-      var t, a;
+      var t, a, i, u;
       if (this.stopAnimation(), "undefined" == typeof window) return;
-      let {duration: i, easing: u, value: s, startValue: r, slow: o, fast: l, fractionDigits: p, startFromPreviousValue: c, ...d} = this.props;
-      null !== (t = i) && void 0 !== t || (i = o ? 2500 : l ? 1000 : 1750), null !== (a = u) && void 0 !== a || (u = "easeInOutQuint");
-      let m = [ s ];
-      var f, O, I;
-      m.unshift(!0 === c ? null !== (f = null !== (O = null !== (I = this.state.animatedValue) && void 0 !== I ? I : e) && void 0 !== O ? O : r) && void 0 !== f ? f : 0 : null != r ? r : 0), 
+      let {duration: s, easing: r, value: o, startValue: l, slow: c, fast: d, fractionDigits: p, startFromPreviousValue: m, ...f} = this.props;
+      null !== (t = s) && void 0 !== t || (s = c ? 2500 : d ? 1000 : 1750), null !== (a = r) && void 0 !== a || (r = "easeInOutQuint");
+      let O = !0 === m && null !== (i = null !== (u = this.state.animatedValue) && void 0 !== u ? u : e) && void 0 !== i ? i : l;
       this.instance = n({
-        ...d,
+        ...f,
         targets: this.target,
-        animatedValue: m,
-        duration: i,
+        animatedValue: [ null != O ? O : 0, o ],
+        duration: s,
         update: this.updateValue,
-        easing: u
+        easing: r
       });
+    })), _defineProperty(this, "render", (() => {
+      const e = function createFormatValueFn(e) {
+        const t = createFixedNumberFn(e);
+        let a;
+        return a = e.formatValue ? (e, a, n) => n.formatValue(t(e), a, n) : (e, a, n) => {
+          let i = t(e);
+          return i && n.locale && (i = i.toLocaleString()), i;
+        }, a;
+      }(this.props);
+      return t.createElement("span", {
+        className: this.props.className
+      }, e(this.state.animatedValue, this.props.value, this.props));
     }));
-  }
-  render() {
-    var e;
-    let {formatValue: a, fractionDigits: n, locale: s} = this.props;
-    return null !== (e = n) && void 0 !== e || (n = i.isInt(this.props.value) ? 0 : 3), 
-    a = a ? e => this.props.formatValue(u(e, n), this.props.value, this.props) : e => {
-      let t = u(e, n);
-      return (null == s || s) && t && (t = t.toLocaleString()), t;
-    }, t.createElement("span", {
-      className: this.props.className
-    }, a(this.state.animatedValue, this.props.value, this.props));
   }
 }
 
