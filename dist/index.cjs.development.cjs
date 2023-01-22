@@ -132,7 +132,7 @@ class AnimatedNumber extends react.Component {
       (_this$instance = this.instance) === null || _this$instance === void 0 ? void 0 : _this$instance.pause();
     });
     _defineProperty(this, "animateValue", oldValue => {
-      var _duration, _easing, _ref, _this$state$animatedV;
+      var _duration, _easing, _ref, _this$state$animatedV, _startValue;
       this.stopAnimation();
       if (typeof window === 'undefined') {
         return;
@@ -150,8 +150,8 @@ class AnimatedNumber extends react.Component {
       } = this.props;
       (_duration = duration) !== null && _duration !== void 0 ? _duration : duration = slow ? 2500 : fast ? 1000 : 1750;
       (_easing = easing) !== null && _easing !== void 0 ? _easing : easing = "easeInOutQuint";
-      let n = startFromPreviousValue === true ? (_ref = (_this$state$animatedV = this.state.animatedValue) !== null && _this$state$animatedV !== void 0 ? _this$state$animatedV : oldValue) !== null && _ref !== void 0 ? _ref : startValue : startValue;
-      let animatedValue = [n !== null && n !== void 0 ? n : 0, value];
+      startValue = startFromPreviousValue === true ? (_ref = (_this$state$animatedV = this.state.animatedValue) !== null && _this$state$animatedV !== void 0 ? _this$state$animatedV : oldValue) !== null && _ref !== void 0 ? _ref : startValue : startValue;
+      let animatedValue = [(_startValue = startValue) !== null && _startValue !== void 0 ? _startValue : 0, value];
       this.instance = anime({
         ...props,
         targets: this.target,
@@ -163,9 +163,15 @@ class AnimatedNumber extends react.Component {
     });
     _defineProperty(this, "render", () => {
       const formatValue = createFormatValueFn(this.props);
+      let displayValue;
+      if (typeof window === 'undefined') {
+        displayValue = formatValue(this.props.value, this.props.value, this.props);
+      } else {
+        displayValue = formatValue(this.state.animatedValue, this.props.value, this.props);
+      }
       return react.createElement('span', {
         className: this.props.className
-      }, formatValue(this.state.animatedValue, this.props.value, this.props));
+      }, displayValue);
     });
   }
 }

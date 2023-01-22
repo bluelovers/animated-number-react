@@ -68,18 +68,19 @@ class AnimatedNumber extends t.Component {
       var e;
       null === (e = this.instance) || void 0 === e || e.pause();
     })), _defineProperty(this, "animateValue", (e => {
-      var t, a, i, u;
+      var t, a, i, u, s;
       if (this.stopAnimation(), "undefined" == typeof window) return;
-      let {duration: s, easing: r, value: o, startValue: l, slow: c, fast: d, fractionDigits: p, startFromPreviousValue: m, ...f} = this.props;
-      null !== (t = s) && void 0 !== t || (s = c ? 2500 : d ? 1000 : 1750), null !== (a = r) && void 0 !== a || (r = "easeInOutQuint");
-      let O = !0 === m && null !== (i = null !== (u = this.state.animatedValue) && void 0 !== u ? u : e) && void 0 !== i ? i : l;
+      let {duration: r, easing: o, value: l, startValue: c, slow: d, fast: p, fractionDigits: m, startFromPreviousValue: f, ...O} = this.props;
+      null !== (t = r) && void 0 !== t || (r = d ? 2500 : p ? 1000 : 1750), null !== (a = o) && void 0 !== a || (o = "easeInOutQuint"), 
+      c = !0 === f && null !== (i = null !== (u = this.state.animatedValue) && void 0 !== u ? u : e) && void 0 !== i ? i : c;
+      let I = [ null !== (s = c) && void 0 !== s ? s : 0, l ];
       this.instance = n({
-        ...f,
+        ...O,
         targets: this.target,
-        animatedValue: [ null != O ? O : 0, o ],
-        duration: s,
+        animatedValue: I,
+        duration: r,
         update: this.updateValue,
-        easing: r
+        easing: o
       });
     })), _defineProperty(this, "render", (() => {
       const e = function createFormatValueFn(e) {
@@ -90,9 +91,11 @@ class AnimatedNumber extends t.Component {
           return i && n.locale && (i = i.toLocaleString()), i;
         }, a;
       }(this.props);
-      return t.createElement("span", {
+      let a;
+      return a = "undefined" == typeof window ? e(this.props.value, this.props.value, this.props) : e(this.state.animatedValue, this.props.value, this.props), 
+      t.createElement("span", {
         className: this.props.className
-      }, e(this.state.animatedValue, this.props.value, this.props));
+      }, a);
     }));
   }
 }

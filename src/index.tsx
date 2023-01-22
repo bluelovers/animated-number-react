@@ -1,4 +1,4 @@
-import { Component, createElement } from 'react';
+import { Component, createElement, ReactNode } from 'react';
 import { bool, func, number, oneOfType, string } from 'prop-types';
 import anime, { AnimeAnimParams, AnimeInstance } from 'animejs';
 import { ITSOmitIndexSignatures } from 'ts-type/lib/helper/record/omit-index';
@@ -237,8 +237,8 @@ export class AnimatedNumber extends Component<IAnimatedNumberProps, IAnimatedNum
 		duration ??= slow ? 2500 : fast ? 1000 : 1750;
 		easing ??= EnumEasingOptions.easeInOutQuint;
 
-		let n: number = (startFromPreviousValue === true) ? (this.state.animatedValue ?? oldValue ?? startValue) : startValue;
-		let animatedValue = [n ?? 0, value];
+		startValue = (startFromPreviousValue === true) ? (this.state.animatedValue ?? oldValue ?? startValue) : startValue;
+		let animatedValue = [startValue ?? 0, value];
 
 		this.instance = anime({
 			...props,
@@ -258,9 +258,20 @@ export class AnimatedNumber extends Component<IAnimatedNumberProps, IAnimatedNum
 	{
 		const formatValue = createFormatValueFn(this.props);
 
+		let displayValue: ReactNode;
+
+		if (typeof window === 'undefined')
+		{
+			displayValue = formatValue(this.props.value, this.props.value, this.props)
+		}
+		else
+		{
+			displayValue = formatValue(this.state.animatedValue, this.props.value, this.props)
+		}
+
 		return createElement('span', {
 			className: this.props.className,
-		}, formatValue(this.state.animatedValue, this.props.value, this.props))
+		}, displayValue)
 	}
 }
 
