@@ -1,6 +1,6 @@
 {
   "name": "animated-number-react2",
-  "version": "0.1.15",
+  "version": "0.1.16",
   "description": "Super easy way to animate numbers with React",
   "keywords": [
     "animation",
@@ -85,6 +85,7 @@
   "dependencies": {
     "@lazy-assert/check-basic": "^1.0.12",
     "@lazy-num/to-fixed-number": "^1.0.9",
+    "@types/animejs": "^3.1.6",
     "animejs": "^3.2.1",
     "prop-types": "^15.8.1",
     "ts-type": "^3.0.1"
