@@ -91,11 +91,10 @@ class AnimatedNumber extends t.Component {
           return i && n.locale && (i = i.toLocaleString()), i;
         }, a;
       }(this.props);
-      let a;
-      return a = "undefined" == typeof window ? e(this.props.value, this.props.value, this.props) : e(this.state.animatedValue, this.props.value, this.props), 
-      t.createElement("span", {
+      let a = "undefined" == typeof window ? this.props.value : this.state.animatedValue;
+      return t.createElement("span", {
         className: this.props.className
-      }, a);
+      }, e(a, this.props.value, this.props));
     }));
   }
 }

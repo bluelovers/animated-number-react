@@ -1,4 +1,4 @@
-import { Component, createElement, ReactNode } from 'react';
+import { Component, createElement } from 'react';
 import { bool, func, number, oneOfType, string } from 'prop-types';
 import anime, { AnimeAnimParams, AnimeInstance } from 'animejs';
 import { ITSOmitIndexSignatures } from 'ts-type/lib/helper/record/omit-index';
@@ -258,20 +258,11 @@ export class AnimatedNumber extends Component<IAnimatedNumberProps, IAnimatedNum
 	{
 		const formatValue = createFormatValueFn(this.props);
 
-		let displayValue: ReactNode;
-
-		if (typeof window === 'undefined')
-		{
-			displayValue = formatValue(this.props.value, this.props.value, this.props)
-		}
-		else
-		{
-			displayValue = formatValue(this.state.animatedValue, this.props.value, this.props)
-		}
+		let displayValue = (typeof window === 'undefined') ? this.props.value : this.state.animatedValue;
 
 		return createElement('span', {
 			className: this.props.className,
-		}, displayValue)
+		}, formatValue(displayValue, this.props.value, this.props))
 	}
 }
 

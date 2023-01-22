@@ -163,15 +163,10 @@ class AnimatedNumber extends react.Component {
     });
     _defineProperty(this, "render", () => {
       const formatValue = createFormatValueFn(this.props);
-      let displayValue;
-      if (typeof window === 'undefined') {
-        displayValue = formatValue(this.props.value, this.props.value, this.props);
-      } else {
-        displayValue = formatValue(this.state.animatedValue, this.props.value, this.props);
-      }
+      let displayValue = typeof window === 'undefined' ? this.props.value : this.state.animatedValue;
       return react.createElement('span', {
         className: this.props.className
-      }, displayValue);
+      }, formatValue(displayValue, this.props.value, this.props));
     });
   }
 }

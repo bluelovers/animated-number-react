@@ -29,7 +29,7 @@ function _defineProperty(e, t, a) {
   }) : e[t] = a, e;
 }
 
-var p;
+var c;
 
 function createFixedNumberFn(e) {
   var t;
@@ -58,7 +58,7 @@ function createFormatValueFn(e) {
   e.easeInOutQuint = "easeInOutQuint", e.easeInOutSine = "easeInOutSine", e.easeInOutExpo = "easeInOutExpo", 
   e.easeInOutCirc = "easeInOutCirc", e.easeInOutBack = "easeInOutBack", e.easeInOutElastic = "easeInOutElastic", 
   e.easeInOutBounce = "easeInOutBounce";
-}(p || (p = {}));
+}(c || (c = {}));
 
 class AnimatedNumber extends e {
   constructor() {
@@ -87,10 +87,10 @@ class AnimatedNumber extends e {
     })), _defineProperty(this, "animateValue", (e => {
       var t, a, n, i, s;
       if (this.stopAnimation(), "undefined" == typeof window) return;
-      let {duration: u, easing: o, value: l, startValue: p, slow: c, fast: d, fractionDigits: m, startFromPreviousValue: f, ...O} = this.props;
-      null !== (t = u) && void 0 !== t || (u = c ? 2500 : d ? 1000 : 1750), null !== (a = o) && void 0 !== a || (o = "easeInOutQuint"), 
-      p = !0 === f && null !== (n = null !== (i = this.state.animatedValue) && void 0 !== i ? i : e) && void 0 !== n ? n : p;
-      let I = [ null !== (s = p) && void 0 !== s ? s : 0, l ];
+      let {duration: u, easing: o, value: l, startValue: c, slow: p, fast: d, fractionDigits: m, startFromPreviousValue: f, ...O} = this.props;
+      null !== (t = u) && void 0 !== t || (u = p ? 2500 : d ? 1000 : 1750), null !== (a = o) && void 0 !== a || (o = "easeInOutQuint"), 
+      c = !0 === f && null !== (n = null !== (i = this.state.animatedValue) && void 0 !== i ? i : e) && void 0 !== n ? n : c;
+      let I = [ null !== (s = c) && void 0 !== s ? s : 0, l ];
       this.instance = r({
         ...O,
         targets: this.target,
@@ -101,11 +101,10 @@ class AnimatedNumber extends e {
       });
     })), _defineProperty(this, "render", (() => {
       const e = createFormatValueFn(this.props);
-      let a;
-      return a = "undefined" == typeof window ? e(this.props.value, this.props.value, this.props) : e(this.state.animatedValue, this.props.value, this.props), 
-      t("span", {
+      let a = "undefined" == typeof window ? this.props.value : this.state.animatedValue;
+      return t("span", {
         className: this.props.className
-      }, a);
+      }, e(a, this.props.value, this.props));
     }));
   }
 }
@@ -124,5 +123,5 @@ _defineProperty(AnimatedNumber, "propTypes", {
   className: i
 }), _defineProperty(AnimatedNumber, "defaultProps", {});
 
-export { AnimatedNumber, p as EnumEasingOptions, createFixedNumberFn, createFormatValueFn, AnimatedNumber as default };
+export { AnimatedNumber, c as EnumEasingOptions, createFixedNumberFn, createFormatValueFn, AnimatedNumber as default };
 //# sourceMappingURL=index.esm.mjs.map
