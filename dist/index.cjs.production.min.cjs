@@ -1,6 +1,6 @@
 "use strict";
 
-var e, t = require("react"), a = require("prop-types"), n = require("animejs"), i = require("@lazy-assert/check-basic"), u = require("@lazy-num/to-fixed-number");
+var e, t, a = require("react"), n = require("prop-types"), i = require("animejs"), u = require("@lazy-assert/check-basic"), r = require("@lazy-num/to-fixed-number");
 
 function _defineProperty(e, t, a) {
   return (t = function _toPropertyKey(e) {
@@ -26,7 +26,16 @@ function _defineProperty(e, t, a) {
 function createFixedNumberFn(e) {
   var t;
   let {fractionDigits: a} = e;
-  return null !== (t = a) && void 0 !== t || (a = i.isInt(e.value) ? 0 : 3), e => u(e, a);
+  return null !== (t = a) && void 0 !== t || (a = u.isInt(e.value) ? 0 : 3), e => r(e, a);
+}
+
+function createFormatValueFn(e) {
+  const t = createFixedNumberFn(e);
+  let a;
+  return a = e.formatValue ? (e, a, n) => n.formatValue(t(e), a, n) : (e, a, n) => {
+    let i = t(e);
+    return i && n.locale && (i = i.toLocaleString()), i;
+  }, a;
 }
 
 !function(e) {
@@ -41,9 +50,11 @@ function createFixedNumberFn(e) {
   e.easeInOutQuint = "easeInOutQuint", e.easeInOutSine = "easeInOutSine", e.easeInOutExpo = "easeInOutExpo", 
   e.easeInOutCirc = "easeInOutCirc", e.easeInOutBack = "easeInOutBack", e.easeInOutElastic = "easeInOutElastic", 
   e.easeInOutBounce = "easeInOutBounce";
-}(e || (e = {}));
+}(e || (e = {})), function(e) {
+  e.normal = "normal", e.reverse = "reverse", e.alternate = "alternate";
+}(t || (t = {}));
 
-class AnimatedNumber extends t.Component {
+class AnimatedNumber extends a.Component {
   constructor() {
     super(...arguments), _defineProperty(this, "state", {
       animatedValue: 0
@@ -68,51 +79,44 @@ class AnimatedNumber extends t.Component {
       var e;
       null === (e = this.instance) || void 0 === e || e.pause();
     })), _defineProperty(this, "animateValue", (e => {
-      var t, a, i, u, s;
+      var t, a, n, u, r;
       if (this.stopAnimation(), "undefined" == typeof window) return void this.setState({
         animatedValue: this.props.value
       });
-      let {duration: r, easing: o, value: l, startValue: c, slow: d, fast: p, fractionDigits: m, startFromPreviousValue: f, ...O} = this.props;
-      null !== (t = r) && void 0 !== t || (r = d ? 2500 : p ? 1000 : 1750), null !== (a = o) && void 0 !== a || (o = "easeInOutQuint"), 
-      c = !0 === f && null !== (i = null !== (u = this.state.animatedValue) && void 0 !== u ? u : e) && void 0 !== i ? i : c;
-      let I = [ null !== (s = c) && void 0 !== s ? s : 0, l ];
-      this.instance = n({
+      let {duration: s, easing: o, value: l, startValue: c, slow: d, fast: m, fractionDigits: p, startFromPreviousValue: f, ...O} = this.props;
+      null !== (t = s) && void 0 !== t || (s = d ? 2500 : m ? 1000 : 1750), null !== (a = o) && void 0 !== a || (o = "easeInOutQuint"), 
+      c = !0 === f && null !== (n = null !== (u = this.state.animatedValue) && void 0 !== u ? u : e) && void 0 !== n ? n : c;
+      let b = [ null !== (r = c) && void 0 !== r ? r : 0, l ];
+      this.instance = i({
         ...O,
         targets: this.target,
-        animatedValue: I,
-        duration: r,
+        animatedValue: b,
+        duration: s,
         update: this.updateValue,
         easing: o
       });
     }));
   }
   render() {
-    const e = function createFormatValueFn(e) {
-      const t = createFixedNumberFn(e);
-      let a;
-      return a = e.formatValue ? (e, a, n) => n.formatValue(t(e), a, n) : (e, a, n) => {
-        let i = t(e);
-        return i && n.locale && (i = i.toLocaleString()), i;
-      }, a;
-    }(this.props);
-    return t.createElement("span", {
+    const e = createFormatValueFn(this.props);
+    return a.createElement("span", {
       className: this.props.className
     }, e("undefined" == typeof window ? this.props.value : this.state.animatedValue, this.props.value, this.props));
   }
 }
 
 _defineProperty(AnimatedNumber, "propTypes", {
-  value: a.oneOfType([ a.number, a.string ]).isRequired,
-  duration: a.number,
-  delay: a.number,
-  formatValue: a.func,
-  startFromPreviousValue: a.bool,
-  begin: a.func,
-  complete: a.func,
-  run: a.func,
-  update: a.func,
-  easing: a.string,
-  className: a.string
+  value: n.oneOfType([ n.number, n.string ]).isRequired,
+  duration: n.number,
+  delay: n.number,
+  formatValue: n.func,
+  startFromPreviousValue: n.bool,
+  begin: n.func,
+  complete: n.func,
+  run: n.func,
+  update: n.func,
+  easing: n.string,
+  className: n.string
 }), Object.defineProperty(AnimatedNumber, "__esModule", {
   value: !0
 }), Object.defineProperty(AnimatedNumber, "AnimatedNumber", {
@@ -121,5 +125,11 @@ _defineProperty(AnimatedNumber, "propTypes", {
   value: AnimatedNumber
 }), Object.defineProperty(AnimatedNumber, "EnumEasingOptions", {
   value: e
+}), Object.defineProperty(AnimatedNumber, "EnumDirectionOptions", {
+  value: t
+}), Object.defineProperty(AnimatedNumber, "createFixedNumberFn", {
+  value: createFixedNumberFn
+}), Object.defineProperty(AnimatedNumber, "createFormatValueFn", {
+  value: createFormatValueFn
 }), module.exports = AnimatedNumber;
 //# sourceMappingURL=index.cjs.production.min.cjs.map

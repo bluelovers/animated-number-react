@@ -29,7 +29,7 @@ function _defineProperty(e, t, a) {
   }) : e[t] = a, e;
 }
 
-var c;
+var c, p;
 
 function createFixedNumberFn(e) {
   var t;
@@ -58,7 +58,9 @@ function createFormatValueFn(e) {
   e.easeInOutQuint = "easeInOutQuint", e.easeInOutSine = "easeInOutSine", e.easeInOutExpo = "easeInOutExpo", 
   e.easeInOutCirc = "easeInOutCirc", e.easeInOutBack = "easeInOutBack", e.easeInOutElastic = "easeInOutElastic", 
   e.easeInOutBounce = "easeInOutBounce";
-}(c || (c = {}));
+}(c || (c = {})), function(e) {
+  e.normal = "normal", e.reverse = "reverse", e.alternate = "alternate";
+}(p || (p = {}));
 
 class AnimatedNumber extends e {
   constructor() {
@@ -125,5 +127,5 @@ _defineProperty(AnimatedNumber, "propTypes", {
   className: i
 });
 
-export { AnimatedNumber, c as EnumEasingOptions, createFixedNumberFn, createFormatValueFn, AnimatedNumber as default };
+export { AnimatedNumber, p as EnumDirectionOptions, c as EnumEasingOptions, createFixedNumberFn, createFormatValueFn, AnimatedNumber as default };
 //# sourceMappingURL=index.esm.mjs.map

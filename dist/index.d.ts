@@ -35,11 +35,28 @@ export declare const enum EnumEasingOptions {
 	easeInOutElastic = "easeInOutElastic",
 	easeInOutBounce = "easeInOutBounce"
 }
+export declare const enum EnumDirectionOptions {
+	/**
+	 * Animation progress goes from 0 to 100%
+	 */
+	normal = "normal",
+	/**
+	 * Animation progress goes from 100% to 0%
+	 */
+	reverse = "reverse",
+	/**
+	 * Animation progress goes from 0% to 100% then goes back to 0%
+	 */
+	alternate = "alternate"
+}
 /**
  * @see https://animejs.com/documentation/
  * @see https://github.com/juliangarnier/anime/
  */
 export interface IAnimatedNumberProps extends Pick<AnimeParams, Exclude<keyof AnimeParams, "targets" | "animatedValue" | "update" | "innerHTML">> {
+	/**
+	 * number that will be animated
+	 */
 	value: number;
 	startValue?: number;
 	startFromPreviousValue?: boolean;
@@ -50,6 +67,7 @@ export interface IAnimatedNumberProps extends Pick<AnimeParams, Exclude<keyof An
 	 * @see https://animejs.com/documentation/#linearEasing
 	 */
 	easing?: ITSTypeAndStringLiteral<EnumEasingOptions> | AnimeAnimParams["easing"];
+	direction?: ITSTypeAndStringLiteral<EnumDirectionOptions> | AnimeAnimParams["direction"];
 	fast?: boolean;
 	slow?: boolean;
 	/**

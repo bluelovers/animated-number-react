@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.1.14](https://github.com/bluelovers/animated-number-react/compare/animated-number-react2@0.1.13...animated-number-react2@0.1.14) (2023-01-22)
+
+**Note:** Version bump only for package animated-number-react2
+
+
+
+
+
 ## [0.1.13](https://github.com/bluelovers/animated-number-react/compare/animated-number-react2@0.1.12...animated-number-react2@0.1.13) (2023-01-22)
 
 **Note:** Version bump only for package animated-number-react2

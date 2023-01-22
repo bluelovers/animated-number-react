@@ -69,6 +69,12 @@ var EnumEasingOptions;
   EnumEasingOptions["easeInOutElastic"] = "easeInOutElastic";
   EnumEasingOptions["easeInOutBounce"] = "easeInOutBounce";
 })(EnumEasingOptions || (EnumEasingOptions = {}));
+var EnumDirectionOptions;
+(function (EnumDirectionOptions) {
+  EnumDirectionOptions["normal"] = "normal";
+  EnumDirectionOptions["reverse"] = "reverse";
+  EnumDirectionOptions["alternate"] = "alternate";
+})(EnumDirectionOptions || (EnumDirectionOptions = {}));
 function createFixedNumberFn(props) {
   var _fractionDigits;
   let {
@@ -197,6 +203,15 @@ _defineProperty(AnimatedNumber, "propTypes", {
   });
   Object.defineProperty(AnimatedNumber, 'EnumEasingOptions', {
     value: EnumEasingOptions
+  });
+  Object.defineProperty(AnimatedNumber, 'EnumDirectionOptions', {
+    value: EnumDirectionOptions
+  });
+  Object.defineProperty(AnimatedNumber, 'createFixedNumberFn', {
+    value: createFixedNumberFn
+  });
+  Object.defineProperty(AnimatedNumber, 'createFormatValueFn', {
+    value: createFormatValueFn
   });
 }
 

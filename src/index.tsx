@@ -1,6 +1,6 @@
 import { Component, createElement } from 'react';
 import { bool, func, number, oneOfType, string } from 'prop-types';
-import anime, { AnimeAnimParams, AnimeInstance, AnimeParams } from 'animejs';
+import anime, { AnimeAnimParams, AnimeInstance, AnimeParams, DirectionOptions } from 'animejs';
 import { ITSOmitIndexSignatures } from 'ts-type/lib/helper/record/omit-index';
 import { ITSTypeAndStringLiteral } from 'ts-type/lib/helper/string';
 import { isInt } from '@lazy-assert/check-basic';
@@ -41,12 +41,31 @@ export const enum EnumEasingOptions
 	easeInOutBounce = "easeInOutBounce",
 }
 
+export const enum EnumDirectionOptions
+{
+	/**
+	 * Animation progress goes from 0 to 100%
+	 */
+	normal = 'normal',
+	/**
+	 * Animation progress goes from 100% to 0%
+	 */
+	reverse = 'reverse',
+	/**
+	 * Animation progress goes from 0% to 100% then goes back to 0%
+	 */
+	alternate = 'alternate',
+}
+
 /**
  * @see https://animejs.com/documentation/
  * @see https://github.com/juliangarnier/anime/
  */
 export interface IAnimatedNumberProps extends Pick<AnimeParams, Exclude<keyof AnimeParams, 'targets' | 'animatedValue' | 'update' | 'innerHTML'>>
 {
+	/**
+	 * number that will be animated
+	 */
 	value: number,
 	startValue?: number,
 	startFromPreviousValue?: boolean,
@@ -60,6 +79,7 @@ export interface IAnimatedNumberProps extends Pick<AnimeParams, Exclude<keyof An
 	 * @see https://animejs.com/documentation/#linearEasing
 	 */
 	easing?: ITSTypeAndStringLiteral<EnumEasingOptions> | AnimeAnimParams["easing"],
+	direction?: ITSTypeAndStringLiteral<EnumDirectionOptions> | AnimeAnimParams["direction"],
 
 	fast?: boolean,
 	slow?: boolean,
@@ -265,4 +285,9 @@ if (process.env.TSDX_FORMAT !== 'esm')
 
 	// @ts-ignore
 	Object.defineProperty(AnimatedNumber, 'EnumEasingOptions', { value: EnumEasingOptions });
+	// @ts-ignore
+	Object.defineProperty(AnimatedNumber, 'EnumDirectionOptions', { value: EnumDirectionOptions });
+
+	Object.defineProperty(AnimatedNumber, 'createFixedNumberFn', { value: createFixedNumberFn });
+	Object.defineProperty(AnimatedNumber, 'createFormatValueFn', { value: createFormatValueFn });
 }
