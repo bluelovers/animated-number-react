@@ -1,6 +1,6 @@
 import { Component, createElement } from 'react';
 import { bool, func, number, oneOfType, string } from 'prop-types';
-import anime, { AnimeAnimParams, AnimeInstance } from 'animejs';
+import anime, { AnimeAnimParams, AnimeInstance, AnimeParams } from 'animejs';
 import { ITSOmitIndexSignatures } from 'ts-type/lib/helper/record/omit-index';
 import { ITSTypeAndStringLiteral } from 'ts-type/lib/helper/string';
 import { isInt } from '@lazy-assert/check-basic';
@@ -45,7 +45,7 @@ export const enum EnumEasingOptions
  * @see https://animejs.com/documentation/
  * @see https://github.com/juliangarnier/anime/
  */
-export interface IAnimatedNumberProps extends Pick<AnimeAnimParams, Exclude<keyof AnimeAnimParams, 'targets' | 'animatedValue' | 'update' | 'innerHTML'>>
+export interface IAnimatedNumberProps extends Pick<AnimeParams, Exclude<keyof AnimeParams, 'targets' | 'animatedValue' | 'update' | 'innerHTML'>>
 {
 	value: number,
 	startValue?: number,
