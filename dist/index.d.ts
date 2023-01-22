@@ -1,4 +1,4 @@
-import { AnimeAnimParams, AnimeInstance, AnimeParams } from 'animejs';
+import { AnimeInstance, AnimeParams } from 'animejs';
 import { Component } from 'react';
 import { ITSTypeAndStringLiteral } from 'ts-type/lib/helper/string';
 
@@ -69,8 +69,8 @@ export interface IAnimatedNumberProps extends Pick<AnimeParams, Exclude<keyof An
 	/**
 	 * @see https://animejs.com/documentation/#linearEasing
 	 */
-	easing?: ITSTypeAndStringLiteral<EnumEasingOptions> | AnimeAnimParams["easing"];
-	direction?: ITSTypeAndStringLiteral<EnumDirectionOptions> | AnimeAnimParams["direction"];
+	easing?: ITSTypeAndStringLiteral<EnumEasingOptions> | AnimeParams["easing"];
+	direction?: ITSTypeAndStringLiteral<EnumDirectionOptions> | AnimeParams["direction"];
 	fast?: boolean;
 	slow?: boolean;
 	/**
