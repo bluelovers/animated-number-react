@@ -41,6 +41,9 @@ export const enum EnumEasingOptions
 	easeInOutBounce = "easeInOutBounce",
 }
 
+/**
+ * @see https://animejs.com/documentation/#direction
+ */
 export const enum EnumDirectionOptions
 {
 	/**

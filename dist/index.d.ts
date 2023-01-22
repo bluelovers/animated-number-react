@@ -35,6 +35,9 @@ export declare const enum EnumEasingOptions {
 	easeInOutElastic = "easeInOutElastic",
 	easeInOutBounce = "easeInOutBounce"
 }
+/**
+ * @see https://animejs.com/documentation/#direction
+ */
 export declare const enum EnumDirectionOptions {
 	/**
 	 * Animation progress goes from 0 to 100%
