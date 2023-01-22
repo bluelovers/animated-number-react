@@ -82,6 +82,9 @@ export interface IAnimatedNumberProps extends Pick<AnimeParams, Exclude<keyof An
 	 * @see https://animejs.com/documentation/#linearEasing
 	 */
 	easing?: ITSTypeAndStringLiteral<EnumEasingOptions> | AnimeParams["easing"],
+	/**
+	 * Defines the direction of the animation.
+	 */
 	direction?: ITSTypeAndStringLiteral<EnumDirectionOptions> | AnimeParams["direction"],
 
 	fast?: boolean,
