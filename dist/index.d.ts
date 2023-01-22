@@ -97,7 +97,6 @@ export declare class AnimatedNumber extends Component<IAnimatedNumberProps, IAni
 		easing: import("prop-types").Requireable<string>;
 		className: import("prop-types").Requireable<string>;
 	};
-	static defaultProps: Partial<IAnimatedNumberProps>;
 	state: {
 		animatedValue: number;
 	};

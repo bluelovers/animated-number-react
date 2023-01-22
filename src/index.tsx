@@ -150,18 +150,6 @@ export class AnimatedNumber extends Component<IAnimatedNumberProps, IAnimatedNum
 		className: string,
 	};
 
-	static defaultProps: Partial<IAnimatedNumberProps> = {
-		//duration: 1000,
-		//formatValue: (value: number) => value,
-		//easing: EnumEasingOptions.easeInOutQuint,
-		//run: defaultFunction,
-		//complete: defaultFunction,
-		//update: defaultFunction,
-		//begin: defaultFunction,
-		//delay: 0,
-		//className: null,
-	};
-
 	override state = {
 		animatedValue: 0,
 	};

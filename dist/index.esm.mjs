@@ -123,7 +123,7 @@ _defineProperty(AnimatedNumber, "propTypes", {
   update: s,
   easing: i,
   className: i
-}), _defineProperty(AnimatedNumber, "defaultProps", {});
+});
 
 export { AnimatedNumber, c as EnumEasingOptions, createFixedNumberFn, createFormatValueFn, AnimatedNumber as default };
 //# sourceMappingURL=index.esm.mjs.map

@@ -185,7 +185,6 @@ _defineProperty(AnimatedNumber, "propTypes", {
   easing: propTypes.string,
   className: propTypes.string
 });
-_defineProperty(AnimatedNumber, "defaultProps", {});
 {
   Object.defineProperty(AnimatedNumber, "__esModule", {
     value: true

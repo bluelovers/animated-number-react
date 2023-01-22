@@ -113,7 +113,7 @@ _defineProperty(AnimatedNumber, "propTypes", {
   update: a.func,
   easing: a.string,
   className: a.string
-}), _defineProperty(AnimatedNumber, "defaultProps", {}), Object.defineProperty(AnimatedNumber, "__esModule", {
+}), Object.defineProperty(AnimatedNumber, "__esModule", {
   value: !0
 }), Object.defineProperty(AnimatedNumber, "AnimatedNumber", {
   value: AnimatedNumber
