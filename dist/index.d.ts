@@ -1,6 +1,5 @@
 import { AnimeAnimParams, AnimeInstance } from 'animejs';
 import { Component } from 'react';
-import { ITSOmitIndexSignatures } from 'ts-type/lib/helper/record/omit-index';
 import { ITSTypeAndStringLiteral } from 'ts-type/lib/helper/string';
 
 export declare const enum EnumEasingOptions {
@@ -40,7 +39,7 @@ export declare const enum EnumEasingOptions {
  * @see https://animejs.com/documentation/
  * @see https://github.com/juliangarnier/anime/
  */
-export interface IAnimatedNumberProps extends Omit<ITSOmitIndexSignatures<AnimeAnimParams>, "targets" | "animatedValue" | "update">, Record<"targets" | "animatedValue" | "innerHTML", never> {
+export interface IAnimatedNumberProps extends Pick<AnimeAnimParams, Exclude<keyof AnimeAnimParams, "targets" | "animatedValue" | "update" | "innerHTML">> {
 	value: number;
 	startValue?: number;
 	startFromPreviousValue?: boolean;

@@ -45,7 +45,7 @@ export const enum EnumEasingOptions
  * @see https://animejs.com/documentation/
  * @see https://github.com/juliangarnier/anime/
  */
-export interface IAnimatedNumberProps extends Omit<ITSOmitIndexSignatures<AnimeAnimParams>, 'targets' | 'animatedValue' | 'update'>, Record<'targets' | 'animatedValue' | 'innerHTML', never>
+export interface IAnimatedNumberProps extends Pick<AnimeAnimParams, Exclude<keyof AnimeAnimParams, 'targets' | 'animatedValue' | 'update' | 'innerHTML'>>
 {
 	value: number,
 	startValue?: number,
