@@ -86,7 +86,9 @@ class AnimatedNumber extends e {
       null === (e = this.instance) || void 0 === e || e.pause();
     })), _defineProperty(this, "animateValue", (e => {
       var t, a, n, i, s;
-      if (this.stopAnimation(), "undefined" == typeof window) return;
+      if (this.stopAnimation(), "undefined" == typeof window) return void this.setState({
+        animatedValue: this.props.value
+      });
       let {duration: u, easing: o, value: l, startValue: c, slow: p, fast: d, fractionDigits: m, startFromPreviousValue: f, ...O} = this.props;
       null !== (t = u) && void 0 !== t || (u = p ? 2500 : d ? 1000 : 1750), null !== (a = o) && void 0 !== a || (o = "easeInOutQuint"), 
       c = !0 === f && null !== (n = null !== (i = this.state.animatedValue) && void 0 !== i ? i : e) && void 0 !== n ? n : c;
@@ -99,13 +101,13 @@ class AnimatedNumber extends e {
         update: this.updateValue,
         easing: o
       });
-    })), _defineProperty(this, "render", (() => {
-      const e = createFormatValueFn(this.props);
-      let a = "undefined" == typeof window ? this.props.value : this.state.animatedValue;
-      return t("span", {
-        className: this.props.className
-      }, e(a, this.props.value, this.props));
     }));
+  }
+  render() {
+    const e = createFormatValueFn(this.props);
+    return t("span", {
+      className: this.props.className
+    }, e("undefined" == typeof window ? this.props.value : this.state.animatedValue, this.props.value, this.props));
   }
 }
 

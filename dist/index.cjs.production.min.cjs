@@ -69,7 +69,9 @@ class AnimatedNumber extends t.Component {
       null === (e = this.instance) || void 0 === e || e.pause();
     })), _defineProperty(this, "animateValue", (e => {
       var t, a, i, u, s;
-      if (this.stopAnimation(), "undefined" == typeof window) return;
+      if (this.stopAnimation(), "undefined" == typeof window) return void this.setState({
+        animatedValue: this.props.value
+      });
       let {duration: r, easing: o, value: l, startValue: c, slow: d, fast: p, fractionDigits: m, startFromPreviousValue: f, ...O} = this.props;
       null !== (t = r) && void 0 !== t || (r = d ? 2500 : p ? 1000 : 1750), null !== (a = o) && void 0 !== a || (o = "easeInOutQuint"), 
       c = !0 === f && null !== (i = null !== (u = this.state.animatedValue) && void 0 !== u ? u : e) && void 0 !== i ? i : c;
@@ -82,20 +84,20 @@ class AnimatedNumber extends t.Component {
         update: this.updateValue,
         easing: o
       });
-    })), _defineProperty(this, "render", (() => {
-      const e = function createFormatValueFn(e) {
-        const t = createFixedNumberFn(e);
-        let a;
-        return a = e.formatValue ? (e, a, n) => n.formatValue(t(e), a, n) : (e, a, n) => {
-          let i = t(e);
-          return i && n.locale && (i = i.toLocaleString()), i;
-        }, a;
-      }(this.props);
-      let a = "undefined" == typeof window ? this.props.value : this.state.animatedValue;
-      return t.createElement("span", {
-        className: this.props.className
-      }, e(a, this.props.value, this.props));
     }));
+  }
+  render() {
+    const e = function createFormatValueFn(e) {
+      const t = createFixedNumberFn(e);
+      let a;
+      return a = e.formatValue ? (e, a, n) => n.formatValue(t(e), a, n) : (e, a, n) => {
+        let i = t(e);
+        return i && n.locale && (i = i.toLocaleString()), i;
+      }, a;
+    }(this.props);
+    return t.createElement("span", {
+      className: this.props.className
+    }, e("undefined" == typeof window ? this.props.value : this.state.animatedValue, this.props.value, this.props));
   }
 }
 

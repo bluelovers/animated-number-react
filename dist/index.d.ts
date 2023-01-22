@@ -112,7 +112,7 @@ export declare class AnimatedNumber extends Component<IAnimatedNumberProps, IAni
 	stopAnimation: () => void;
 	pauseAnimation: () => void;
 	animateValue: (oldValue?: number) => void;
-	render: () => import("react").DetailedReactHTMLElement<{
+	render(): import("react").DetailedReactHTMLElement<{
 		className: string;
 	}, HTMLElement>;
 }

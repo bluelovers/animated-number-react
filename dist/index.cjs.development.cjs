@@ -135,6 +135,9 @@ class AnimatedNumber extends react.Component {
       var _duration, _easing, _ref, _this$state$animatedV, _startValue;
       this.stopAnimation();
       if (typeof window === 'undefined') {
+        this.setState({
+          animatedValue: this.props.value
+        });
         return;
       }
       let {
@@ -161,13 +164,12 @@ class AnimatedNumber extends react.Component {
         easing
       });
     });
-    _defineProperty(this, "render", () => {
-      const formatValue = createFormatValueFn(this.props);
-      let displayValue = typeof window === 'undefined' ? this.props.value : this.state.animatedValue;
-      return react.createElement('span', {
-        className: this.props.className
-      }, formatValue(displayValue, this.props.value, this.props));
-    });
+  }
+  render() {
+    const formatValue = createFormatValueFn(this.props);
+    return react.createElement('span', {
+      className: this.props.className
+    }, formatValue(typeof window === 'undefined' ? this.props.value : this.state.animatedValue, this.props.value, this.props));
   }
 }
 _defineProperty(AnimatedNumber, "propTypes", {

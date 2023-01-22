@@ -215,6 +215,7 @@ export class AnimatedNumber extends Component<IAnimatedNumberProps, IAnimatedNum
 
 		if (typeof window === 'undefined')
 		{
+			this.setState({ animatedValue: this.props.value });
 			return;
 		}
 
@@ -254,15 +255,13 @@ export class AnimatedNumber extends Component<IAnimatedNumberProps, IAnimatedNum
 		});
 	};
 
-	override render = () =>
+	override render()
 	{
 		const formatValue = createFormatValueFn(this.props);
 
-		let displayValue = (typeof window === 'undefined') ? this.props.value : this.state.animatedValue;
-
 		return createElement('span', {
 			className: this.props.className,
-		}, formatValue(displayValue, this.props.value, this.props))
+		}, formatValue((typeof window === 'undefined') ? this.props.value : this.state.animatedValue, this.props.value, this.props))
 	}
 }
 
