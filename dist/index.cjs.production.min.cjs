@@ -101,7 +101,7 @@ class AnimatedNumber extends a.Component {
     const e = createFormatValueFn(this.props);
     return a.createElement("span", {
       className: this.props.className
-    }, e("undefined" == typeof window ? this.props.value : this.state.animatedValue, this.props.value, this.props));
+    }, e("undefined" != typeof window && this.instance ? this.state.animatedValue : this.props.value, this.props.value, this.props));
   }
 }
 

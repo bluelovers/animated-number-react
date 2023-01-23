@@ -109,7 +109,7 @@ class AnimatedNumber extends e {
     const e = createFormatValueFn(this.props);
     return t("span", {
       className: this.props.className
-    }, e("undefined" == typeof window ? this.props.value : this.state.animatedValue, this.props.value, this.props));
+    }, e("undefined" != typeof window && this.instance ? this.state.animatedValue : this.props.value, this.props.value, this.props));
   }
 }
 

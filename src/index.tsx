@@ -275,7 +275,7 @@ export class AnimatedNumber extends Component<IAnimatedNumberProps, IAnimatedNum
 
 		return createElement('span', {
 			className: this.props.className,
-		}, formatValue((typeof window === 'undefined') ? this.props.value : this.state.animatedValue, this.props.value, this.props))
+		}, formatValue((typeof window === 'undefined' || !this.instance) ? this.props.value : this.state.animatedValue, this.props.value, this.props))
 	}
 }
 
